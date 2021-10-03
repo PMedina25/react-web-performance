@@ -6,10 +6,10 @@ export class Card extends React.Component {
 
     return (
       <div
-        onMouseDown={ev => {
+        onMouseDown={(ev) => {
           const clickOffset = {
             x: ev.clientX - parseFloat(ev.currentTarget.style.left),
-            y: ev.clientY - parseFloat(ev.currentTarget.style.top)
+            y: ev.clientY - parseFloat(ev.currentTarget.style.top),
           };
           onDragStart(clickOffset);
         }}
@@ -22,7 +22,7 @@ export class Card extends React.Component {
           backgroundColor: "#fff",
           padding: "25px",
           cursor: "move",
-          userSelect: "none"
+          userSelect: "none",
         }}
         key={card.id}
       >
