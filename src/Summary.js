@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import levenshtein from "levenshtein";
+import "./Summary.css";
+import { CornerButton } from "./CornerButton";
 
 const Summary = React.memo(
   function Summary(props) {
+    const [position, setPosition] = useState("top-right");
+
     const cards = Object.values(props.cards);
 
     const distances = { max: 0, min: 100000 };
@@ -19,23 +23,36 @@ const Summary = React.memo(
     });
 
     return (
-      <div
-        style={{
-          position: "absolute",
-          right: 20,
-          top: 20,
-          backgroundColor: "#fafafa",
-          padding: "10px",
-          border: "3px solid #333",
-        }}
-      >
+      <div className={`Summary Summary-${position}`}>
         <div>You have {Object.keys(props.cards).length} cards!</div>
         <div>Max difference in labels: {distances.max}</div>
         <div>Min difference in labels: {distances.min}</div>
+
+        <CornerButton
+          setPosition={setPosition}
+          corner="top-right"
+          position={position}
+        />
+        <CornerButton
+          setPosition={setPosition}
+          corner="top-left"
+          position={position}
+        />
+        <CornerButton
+          setPosition={setPosition}
+          corner="bottom-left"
+          position={position}
+        />
+        <CornerButton
+          setPosition={setPosition}
+          corner="bottom-right"
+          position={position}
+        />
       </div>
     );
   },
-  (p1, p2) => Object.keys(p1.cards).length === Object.keys(p2.cards).length
+  (prevProps, newProps) =>
+    Object.keys(prevProps.cards).length === Object.keys(newProps.cards).length
 );
 
 export default Summary;
