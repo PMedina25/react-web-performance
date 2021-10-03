@@ -5,7 +5,7 @@ import cardData from "./data.json";
 import uuid from "uuid";
 import { Card } from "./Card";
 import AddButton from "./AddButton";
-import { Summary } from "./Summary";
+import Summary from "./Summary";
 import { AddModal } from "./AddModal";
 
 function positionCards(cards, width, height) {
@@ -59,8 +59,9 @@ function App() {
   }, [height, width]);
 
   function handleDelete(card) {
-    delete cards[card.id];
-    setCards({ ...cards });
+    const clonedCards = { ...cards };
+    delete clonedCards[card.id];
+    setCards({ ...clonedCards });
   }
 
   const cardEls = Object.values(cards).map((card) => (
